@@ -5,6 +5,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const problemRoutes = require('./routes/problemRoutes');
+const logRoutes = require('./routes/logRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
 const app = express();
 
@@ -49,6 +55,13 @@ app.get(`${API_PREFIX}/health`, (req, res) => {
   });
 });
 
+// ==== AUTH ROUTES ====
+app.use(`${API_PREFIX}/auth`, authRoutes);
+app.use(`${API_PREFIX}/users`, userRoutes);
+app.use(`${API_PREFIX}/admin`, adminRoutes);
+app.use(`${API_PREFIX}/problems`, problemRoutes);
+app.use(`${API_PREFIX}/logs`, logRoutes);
+app.use(`${API_PREFIX}/analytics`, analyticsRoutes);
 // ====== 404 Handler ======
 app.use((req, res, next) => {
   const error = new Error('Not Found');

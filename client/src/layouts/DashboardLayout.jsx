@@ -1,0 +1,73 @@
+import { Link } from 'react-router-dom';
+
+const DashboardLayout = ({ children }) => {
+  return (
+    <div className="min-h-screen flex bg-slate-100">
+      {/* Sidebar (Desktop only) */}
+      <aside className="hidden md:block md:w-64 bg-white border-r px-6 py-8">
+        <h2 className="text-2xl font-bold text-slate-800 mb-10">
+          AlgoTrack
+        </h2>
+
+        <nav className="space-y-4">
+          <Link
+            to="/dashboard"
+            className="block text-slate-700 font-medium hover:text-slate-900"
+          >
+            Dashboard
+          </Link>
+
+          <Link
+            to="/problems"
+            className="block text-slate-700 font-medium hover:text-slate-900"
+          >
+            Problems
+          </Link>
+
+          <Link
+            to="/practice"
+            className="block text-slate-700 font-medium hover:text-slate-900"
+          >
+            Practice
+          </Link>
+        </nav>
+      </aside>
+
+      {/* Main Content Wrapper */}
+      <div className="flex-1 flex flex-col">
+        {/* Mobile Navigation (ONLY mobile) */}
+        <div className="md:hidden bg-white border-b px-4 py-3">
+          <nav className="flex justify-between text-sm font-medium">
+            <Link
+              to="/dashboard"
+              className="text-slate-700 hover:text-slate-900"
+            >
+              Dashboard
+            </Link>
+
+            <Link
+              to="/problems"
+              className="text-slate-700 hover:text-slate-900"
+            >
+              Problems
+            </Link>
+
+            <Link
+              to="/practice"
+              className="text-slate-700 hover:text-slate-900"
+            >
+              Practice
+            </Link>
+          </nav>
+        </div>
+
+        {/* Page Content */}
+        <main className="flex-1 p-4 md:p-8">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;
