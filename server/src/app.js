@@ -20,12 +20,24 @@ const app = express();
 app.use(helmet());
 
 // CORS (for now allow localhost client; later we tighten this)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://algotrack-tau.vercel.app"
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 
 // Logging
 if (process.env.NODE_ENV !== 'test') {
