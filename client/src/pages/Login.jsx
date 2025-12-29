@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { loginUser } from '../api/auth.api';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -70,6 +71,14 @@ const Login = () => {
         >
           Sign in
         </button>
+       <p className="text-sm mt-4 text-center">
+  New user?{' '}
+  <Link to="/register" className="text-blue-600 hover:underline">
+    Create an account
+  </Link>
+</p>
+
+
       </form>
 
       {/* Footer */}

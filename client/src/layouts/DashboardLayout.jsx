@@ -1,6 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const DashboardLayout = ({ children }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/', { replace: true });
+  };
+
   return (
     <div className="min-h-screen flex bg-slate-100">
       {/* Sidebar (Desktop only) */}
@@ -30,14 +37,22 @@ const DashboardLayout = ({ children }) => {
           >
             Practice
           </Link>
+
+          {/* 🔴 Logout (Desktop) */}
+          <button
+            onClick={handleLogout}
+            className="mt-10 block w-full text-left text-red-600 font-medium hover:text-red-700"
+          >
+            Logout
+          </button>
         </nav>
       </aside>
 
       {/* Main Content Wrapper */}
       <div className="flex-1 flex flex-col">
-        {/* Mobile Navigation (ONLY mobile) */}
+        {/* Mobile Navigation */}
         <div className="md:hidden bg-white border-b px-4 py-3">
-          <nav className="flex justify-between text-sm font-medium">
+          <nav className="flex justify-between items-center text-sm font-medium">
             <Link
               to="/dashboard"
               className="text-slate-700 hover:text-slate-900"
@@ -58,6 +73,14 @@ const DashboardLayout = ({ children }) => {
             >
               Practice
             </Link>
+
+            {/* 🔴 Logout (Mobile) */}
+            <button
+              onClick={handleLogout}
+              className="text-red-600 hover:text-red-700"
+            >
+              Logout
+            </button>
           </nav>
         </div>
 

@@ -4,6 +4,7 @@ import Dashboard from '../pages/Dashboard';
 import ProtectedRoute from '../components/ProtectedRoute';
 import Problems from '../pages/Problems';
 import Practice from '../pages/Practice';
+import Register from '../pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
     </ProtectedRoute>
   ),
 },
+
+{
+  path: '/register',
+  element: <Register />,
+}
 
 ]);
 

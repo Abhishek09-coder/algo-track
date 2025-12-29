@@ -1,5 +1,5 @@
 // src/server.js
-require('dotenv').config();
+require('dotenv').config();  // without this, app itself doesn't know it's database password
 const http = require('http');
 const app = require('./app');
 const connectDB = require('./config/db');
