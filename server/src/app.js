@@ -13,7 +13,7 @@ const logRoutes = require('./routes/logRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 
 const app = express();
-
+app.set('trust proxy', 1);
 // ====== Middlewares ======
 
 // Security headers
@@ -51,9 +51,12 @@ app.use(cookieParser());
 
 // Basic rate limiting on all routes (can later move to auth-only)
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 min
-  max: 100, // limit each IP
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
 });
+
 app.use(limiter);
 
 const API_PREFIX = '/api/v1';

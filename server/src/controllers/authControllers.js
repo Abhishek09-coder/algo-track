@@ -51,7 +51,7 @@ const register = async (req, res, next) => {
       name,
       email: email.toLowerCase(),
       passwordHash,
-      role
+      
     });
 
     // 5) Generate JWT
