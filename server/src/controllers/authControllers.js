@@ -18,12 +18,14 @@ const buildUserResponse = (user, token) => {
   };
 };
 
+// ==============================
 // @desc   Register new user
 // @route  POST /api/v1/auth/register
 // @access Public
+// ==============================
 const register = async (req, res, next) => {
   try {
-    // 1) Validation errors from express-validator
+    // 1) Validate request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -35,7 +37,10 @@ const register = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     // 2) Check if user already exists
-    const existingUser = await User.findOne({ email: email.toLowerCase() });
+    const existingUser = await User.findOne({
+      email: email.toLowerCase(),
+    });
+
     if (existingUser) {
       return res.status(400).json({
         message: 'Email already in use',
@@ -46,12 +51,11 @@ const register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // 4) Create user
+    // 4) Create user (role defaults to 'user' from schema)
     const user = await User.create({
       name,
       email: email.toLowerCase(),
       passwordHash,
-      
     });
 
     // 5) Generate JWT
@@ -64,12 +68,14 @@ const register = async (req, res, next) => {
   }
 };
 
+// ==============================
 // @desc   Login user
 // @route  POST /api/v1/auth/login
 // @access Public
+// ==============================
 const login = async (req, res, next) => {
   try {
-    // 1) Validation errors
+    // 1) Validate request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -81,7 +87,10 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     // 2) Find user by email
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const user = await User.findOne({
+      email: email.toLowerCase(),
+    });
+
     if (!user) {
       return res.status(400).json({
         message: 'Invalid email or password',
